@@ -14,6 +14,12 @@ def convert_to_obsidian_format(input_text):
     # 处理内联公式：将 \( ... \) 转换为 $ ... $（行内公式）
     text = re.sub(r'\\\(([\s\S]*?)\\\)', r'$\1$', text)
     
+    # 处理内联公式：删除$符号前后的空格，确保Obsidian能够正确识别行内公式
+    # 删除$后面的空格
+    text = re.sub(r'\$\s+', r'$', text)
+    # 删除$前面的空格
+    text = re.sub(r'\s+\$', r'$', text)
+    
     # 如果有其他 LaTeX 格式的公式（未用 \( 或 \[ 包裹），可以添加额外规则
     # 这里假设大部分公式已按标准 LaTeX 格式编写
     
